@@ -22,3 +22,12 @@ Seperti yang dijelaskan dalam tutorial, sebuah koneksi melibatkan dua sisi, yait
 
 Server dan client menggunakan protokol yang sama, yaitu WebSocket, yang diimplementasikan menggunakan library `tokio_websockets` untuk mendukung komunikasi real-time. Pada server.rs, WebSocket dijelaskan menggunakan `WebSocketStream` dan `ServerBuilder`, sedangkan pada client.rs, menggunakan `ClientBuilder` dan `WebSocketStream`.
 
+## 2.3. Small changes. Add some information to client
+
+![](https://i.imgur.com/y7SsBOu.png)
+
+Untuk memasukkan informasi IP dan Port dari pengirim ke dalam pesan, saya melakukan beberapa perubahan pada kode:
+
+- Mengubah pengiriman pesan broadcast menjadi `bcast_tx.send(format!("{addr} : {text}"))?;`.
+- Menambahkan nama pengirim pada server.rs dengan menampilkan pesan `New connection from Divie's Computer {addr:?}`. Hal ini memberikan informasi yang lebih rinci tentang koneksi yang terjadi dari komputer pengirim.
+- Menambahkan nama pengirim pada client.rs dengan menampilkan pesan `Divie's Computer - From server: {}", text`. Ini memungkinkan kita untuk mengetahui asal pesan dan mengidentifikasi sumber pesan, yaitu komputer pengirim.
